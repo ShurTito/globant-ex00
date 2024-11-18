@@ -177,6 +177,15 @@ h1 {
 
 /* Ajustes responsivos para pantallas más pequeñas */
 @media (max-width: 500px) {
+    h1 {
+        font-size: 15vw; /* Tamaño de fuente relativo al ancho de la pantalla */
+        margin-bottom: 20px;
+        color: #fbc02d; /* Dorado */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para darle más profundidad */
+        font-weight: bold;
+        letter-spacing: 2px; /* Espaciado entre letras */
+    }
+
     .game-container {
         width: 90vw; /* Reducir el tamaño del contenedor en pantallas pequeñas */
         height: 80vh; /* Ajustar la altura */
