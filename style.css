@@ -1,0 +1,181 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #00c6ff, #0072ff); /* Azul Claro a Turquesa */
+    background-size: cover; /* Asegura que el gradiente cubra toda la pantalla */
+    background-color: #fff;
+    overflow: hidden; /* Para evitar que se salga contenido fuera de la pantalla */
+}
+
+.game-container {
+    text-align: center;
+    width: 90vw; /* Ancho máximo en porcentaje de la pantalla */
+    max-width: 500px; /* Limitar el ancho máximo */
+    min-width: 300px; /* Limitar el ancho mínimo */
+    height: 90vh; /* Alto máximo en porcentaje de la pantalla */
+    max-height: 500px; /* Limitar la altura máxima */
+    min-height: 300px; /* Limitar la altura mínima */
+}
+
+h1 {
+    font-size: 5vw; /* Tamaño de fuente relativo al ancho de la pantalla */
+    margin-bottom: 20px;
+    color: #fbc02d; /* Dorado */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para darle más profundidad */
+    
+    font-weight: bold;
+    letter-spacing: 2px; /* Espaciado entre letras */
+}
+
+/* Estilo general para los contenedores de puntajes */
+.score-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f5f5f5; /* Fondo suave */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.score-container span {
+    color: #333; /* Color de texto */
+    font-size: 1.5rem; /* Tamaño de texto */
+}
+
+/* Estilo para el puntaje y mejor puntaje */
+#score, #best-score {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333; /* Color del texto */
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Cada columna toma el mismo espacio disponible */
+    grid-template-rows: repeat(4, 1fr); /* Cada fila toma el mismo espacio disponible */
+    gap: 10px;
+    justify-content: center;
+    position: relative;
+    width: 100%; /* Asegurarse de que ocupe todo el ancho disponible */
+    height: 70%; /* El 70% del alto del contenedor */
+}
+
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ccc0b3;
+    font-size: 3vw; /* Tamaño de fuente relativo */
+    font-weight: bold;
+    border-radius: 5px;
+    transition: transform 0.5s ease-in-out background-color 0.5s ease;
+    position: relative;
+    width: 100%; /* Asegurarse de que el tamaño del tile se ajuste */
+    height: 100%; /* Asegurarse de que el tamaño del tile se ajuste */
+}
+
+.tile-2 { background-color: #eee4da; }
+.tile-4 { background-color: #ede0c8; }
+.tile-8 { background-color: #f2b179; }
+.tile-16 { background-color: #f59563; }
+.tile-32 { background-color: #f67c5f; }
+.tile-64 { background-color: #f65e3b; }
+.tile-128 { background-color: #edcf72; }
+.tile-256 { background-color: #edcc61; }
+.tile-512 { background-color: #edc850; }
+.tile-1024 { background-color: #edc53f; }
+.tile-2048 { background-color: #edc22e; }
+
+/* Estilo para el botón de reiniciar */
+#restart-btn {
+    padding: 12px 30px; /* Relleno interior */
+    font-size: 18px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambio de cursor */
+    background-color: #2a19eb; /* Color de fondo */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 8px; /* Bordes redondeados */
+    margin-top: 30px; /* Separación superior */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    transition: all 0.3s ease; /* Transición suave */
+    align-self: flex-end; /* Alinear al final del contenedor */
+}
+
+#restart-btn:hover {
+    background-color: #126be6; /* Color más oscuro al pasar el ratón */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* Sombra más prominente al pasar el ratón */
+}
+.tile.new {
+    animation: appear 0.5s ease-in-out;
+}
+
+#arrow-display {
+    font-size: 1.4rem; /* Tamaño de texto */
+    margin-top: 20px; /* Separación superior */
+    padding: 15px; /* Espacio interior */
+    background-color: #f5f5f5; /* Fondo suave */
+    border-radius: 10px; /* Bordes redondeados */
+    display: inline-flex; /* Alineación flexible */
+    align-items: center; /* Centrar el ícono verticalmente */
+    justify-content: flex-start; /* Alinear el texto a la izquierda */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    width: auto; /* Ancho automático */
+    height: 60px; /* Altura fija */
+    color: #333; /* Color de texto */
+    font-weight: bold; /* Negrita para el texto */
+    text-align: center; /* Centrar el texto */
+    transition: all 0.3s ease; /* Transición suave para efectos */
+}
+
+#arrow-display i {
+    font-size: 2rem; /* Tamaño del ícono */
+    margin-left: 10px; /* Separación entre texto e ícono */
+    color: #4caf50; /* Color verde para el ícono (puedes cambiarlo) */
+}
+
+
+@keyframes appear {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+/* Ajustes responsivos para pantallas más pequeñas */
+@media (max-width: 500px) {
+    .game-container {
+        width: 300px; /* Reducir el tamaño del contenedor en pantallas pequeñas */
+        padding: 15px;
+    }
+
+    .score-container {
+        flex-direction: column; /* Poner los puntajes uno debajo del otro */
+        align-items: flex-start; /* Alinear los elementos al inicio */
+    }
+
+    #arrow-display {
+        width: auto; /* Dejar que el ancho del display se ajuste */
+        font-size: 1.8rem; /* Reducir el tamaño del texto en pantallas pequeñas */
+    }
+
+    #restart-btn {
+        padding: 10px 25px; /* Ajustar el tamaño del botón */
+        font-size: 16px; /* Reducir el tamaño de la fuente */
+    }
+}
