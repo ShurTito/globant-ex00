@@ -10,6 +10,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin: 0; /* Eliminar margen */
+    padding: 0; /* Eliminar padding */
     background: linear-gradient(to right, #00c6ff, #0072ff); /* Azul Claro a Turquesa */
     background-size: cover; /* Asegura que el gradiente cubra toda la pantalla */
     background-color: #fff;
@@ -27,8 +29,9 @@ body, .game-container {
     max-width: 500px; /* Limitar el ancho máximo */
     min-width: 300px; /* Limitar el ancho mínimo */
     height: 100vh; /* Reducir la altura para dar espacio al botón de reiniciar */
-    max-height: 500px; /* Limitar la altura máxima */
-    min-height: 300px; /* Limitar la altura mínima */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrar verticalmente */
     transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
 }
 
@@ -106,7 +109,8 @@ h1 {
 
 /* Estilo para el botón de reiniciar */
 #restart-btn {
-    padding: 12px 30px; /* Relleno interior */
+    margin-left: 5px;
+    padding: 12px 12px; /* Relleno interior */
     font-size: 18px; /* Tamaño de fuente */
     cursor: pointer; /* Cambio de cursor */
     background-color: #2a19eb; /* Color de fondo */
