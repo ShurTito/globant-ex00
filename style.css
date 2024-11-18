@@ -159,6 +159,7 @@ h1 {
 /* Estilo para la flecha activa */
 .arrow.active {
     color: #20cf09; /* Rojo Tomate para la flecha activa (última pulsada) */
+    transform: scale(1.2); /* Aumentar el tamaño de la flecha activa */
 }
 
 @keyframes appear {
