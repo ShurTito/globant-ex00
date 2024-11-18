@@ -2,6 +2,9 @@ const gridSize = 4; // The grid is 4x4
 let board = [];
 let score = 0;
 let bestScore = localStorage.getItem('bestScore') ? parseInt(localStorage.getItem('bestScore')) : 0; // Retrieve the best score from localStorage or set to 0
+let touchStartX = 0;
+let touchStartY = 0;
+let isTouching = false;
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize the game when the DOM is ready
@@ -12,6 +15,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Handle key presses for movement
     window.addEventListener('keydown', handleKeyPress);
+
+    // Detectar desplazamiento en la pantalla
+    document.body.addEventListener('touchstart', handleTouchStart, { passive: true });
+    document.body.addEventListener('touchmove', handleTouchMove, { passive: true });
+    document.body.addEventListener('touchend', handleTouchEnd, { passive: true });
 });
 
 function initGame() {
@@ -22,8 +30,7 @@ function initGame() {
     generateRandomTile();
     generateRandomTile();
     updateBoard();
-    document.getElementById('arrow-display').innerHTML = `Last Move:  `;
-
+    updateArrowDisplay(''); // Clear the arrow display
 }
 
 function generateRandomTile() {
@@ -67,30 +74,28 @@ function updateBoard() {
 function handleKeyPress(event) {
     let moved = false;
     
-    let arrowIcon = '';
+    let direction = '';
 
     switch (event.key) {
         case 'ArrowUp':
             moved = moveUp();
-            arrowIcon = '<i class="fas fa-arrow-up"></i>';
+            direction = 'up';
             break;
         case 'ArrowDown':
             moved = moveDown();
-            arrowIcon = '<i class="fas fa-arrow-down"></i>';
+            direction = 'down';
             break;
         case 'ArrowLeft':
             moved = moveLeft();
-            arrowIcon = '<i class="fas fa-arrow-left"></i>';
+            direction = 'left';
             break;
         case 'ArrowRight':
             moved = moveRight();
-            arrowIcon = '<i class="fas fa-arrow-right"></i>';
+            direction = 'right';
             break;
         default:
             return; // Ignore other keys
     }
-
-    document.getElementById('arrow-display').innerHTML = `Last Move: ${arrowIcon}`;
 
     
     if (moved) {
@@ -107,6 +112,26 @@ function handleKeyPress(event) {
     
     if (checkWin()) {
         alert('You Win!'); // Alert the player when they win
+    }
+    updateArrowDisplay(direction); // Update the arrow display with the last pressed key
+
+}
+
+function updateArrowDisplay(direction) {
+    const arrows = document.querySelectorAll('#arrow-display .arrow');
+    
+    // Remove the 'active' class from all arrows
+    arrows.forEach(arrow => {
+        arrow.classList.remove('active');
+    });
+
+    // Find the arrow with the matching 'data-direction' and add the 'active' class
+    const lastArrow = [...arrows].find(arrow => {
+        return arrow.getAttribute('data-direction') === direction;
+    });
+
+    if (lastArrow) {
+        lastArrow.classList.add('active');
     }
 }
 
@@ -307,4 +332,96 @@ function addTile(x, y, value) {
     tileElement.textContent = value;
     document.getElementById('grid-container').appendChild(tileElement);
     setTimeout(() => tileElement.classList.remove('new'), 200);
+}
+
+// Función para detectar el inicio del toque
+function handleTouchStart(event) {
+    // Prevent default behavior (prevent scrolling or zooming)
+    event.preventDefault();
+    const touch = event.touches[0]; // Obtiene el primer toque
+    touchStartX = touch.clientX;
+    touchStartY = touch.clientY;
+    isTouching = true;
+}
+
+// Función para detectar el movimiento del toque
+function handleTouchMove(event) {
+    if (!isTouching) return; // Solo procesar si se está tocando
+    
+    event.preventDefault(); // Evita el comportamiento por defecto del navegador (scrolling)
+}
+
+// Función para detectar el final del toque
+function handleTouchEnd(event) {
+    if (!isTouching) return;
+    
+    const touchEndX = event.changedTouches[0].clientX;
+    const touchEndY = event.changedTouches[0].clientY;
+    const deltaX = touchEndX - touchStartX; // Desplazamiento horizontal
+    const deltaY = touchEndY - touchStartY; // Desplazamiento vertical
+    
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+        // Desplazamiento horizontal (izquierda o derecha)
+        if (deltaX > 0) {
+            // Deslizó a la derecha
+            handleTouchMove('right');
+        } else {
+            // Deslizó a la izquierda
+            handleTouchMove('left');
+        }
+    } else {
+        // Desplazamiento vertical (arriba o abajo)
+        if (deltaY > 0) {
+            // Deslizó hacia abajo
+            handleTouchMove('down');
+        } else {
+            // Deslizó hacia arriba
+            handleTouchMove('up');
+        }
+    }
+    
+    isTouching = false; // Resetear el estado
+}
+
+// Función que maneja el movimiento según la dirección tocada
+function handleTouchMove(direction) {
+    let moved = false;
+    
+    let direct = '';
+    switch (direction) {
+        case 'up':
+            moved = moveUp();
+            direct = 'up';
+            break;
+        case 'down':
+            moved = moveDown();
+            direct = 'down';
+            break;
+        case 'left':
+            moved = moveLeft();
+            direct = 'left';
+            break;
+        case 'right':
+            moved = moveRight();
+            direct = 'right';
+            break;
+    }
+
+    if (moved) {
+        generateRandomTile(); // Generar un nuevo tile
+        updateBoard(); // Actualizar el tablero visualmente
+        document.getElementById('score').textContent = score;  // Actualizar la puntuación
+    }
+
+    if (checkGameOver()) {
+        alert('Game Over!');
+        updateBestScore(); // Actualizar la mejor puntuación
+        initGame(); // Reiniciar el juego
+    }
+
+    if (checkWin()) {
+        alert('You Win!');
+    }
+
+    updateArrowDisplay(direct); // Actualizar la dirección del último movimiento
 }

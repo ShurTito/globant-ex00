@@ -18,11 +18,16 @@
 
         <div class="grid-container" id="grid-container"></div>
 
-        <div id="arrow-display">
-            Last Move: <i class="fas fa-arrow-up"></i>
+        <div id="arrow-display-container">
+            <div id="arrow-display">
+                <span class="arrow" data-direction="up"><i class="fas fa-arrow-up"></i></span>
+                <span class="arrow" data-direction="down"><i class="fas fa-arrow-down"></i></span>
+                <span class="arrow" data-direction="left"><i class="fas fa-arrow-left"></i></span>
+                <span class="arrow" data-direction="right"><i class="fas fa-arrow-right"></i></span>
+            </div>
+        
+            <button id="restart-btn">Restart Game</button>
         </div>
-    
-        <button id="restart-btn">Restart Game</button>
     </div>
 
     <script src="script.js"></script>
