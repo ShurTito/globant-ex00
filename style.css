@@ -194,4 +194,14 @@ h1 {
         padding: 10px 25px; /* Ajustar el tamaño del botón */
         font-size: 16px; /* Reducir el tamaño de la fuente */
     }
+
+    h1 {
+        font-size: 5vw; /* Tamaño de fuente relativo al ancho de la pantalla */
+        margin-bottom: 20px;
+        color: #fbc02d; /* Dorado */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para darle más profundidad */
+        font-weight: bold;
+        letter-spacing: 2px; /* Espaciado entre letras */
+    }
+    
 }
