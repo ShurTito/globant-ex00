@@ -175,33 +175,39 @@ h1 {
 /* Ajustes responsivos para pantallas más pequeñas */
 @media (max-width: 500px) {
     .game-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between; /* Distribuir los elementos de manera uniforme */
+        align-items: center;
         width: 90vw; /* Reducir el tamaño del contenedor en pantallas pequeñas */
-        height: 80vh; /* Ajustar la altura */
-        padding: 15px;
-        margin-top: 5vh; /* Levantar el contenedor en pantallas pequeñas */
+        height: 90vh; /* Ajustar la altura */
+        padding: 10px; /* Añadir un poco de padding */
     }
 
     .score-container {
+        display: flex;
         flex-direction: column; /* Poner los puntajes uno debajo del otro */
-        align-items: flex-start; /* Alinear los elementos al inicio */
+        align-items: center; /* Alinear los elementos al centro */
+        margin-bottom: 10px; /* Añadir un margen inferior */
     }
 
     #arrow-display {
         font-size: 1.8rem; /* Reducir el tamaño del texto en pantallas pequeñas */
+        margin-top: 10px; /* Añadir un margen superior */
     }
 
     #restart-btn {
         padding: 10px 25px; /* Ajustar el tamaño del botón */
         font-size: 16px; /* Reducir el tamaño de la fuente */
+        margin-top: 10px; /* Añadir un margen superior */
     }
 
     h1 {
-        font-size: 5vw; /* Tamaño de fuente relativo al ancho de la pantalla */
-        margin-bottom: 20px;
+        font-size: 15vw; /* Tamaño de fuente relativo al ancho de la pantalla */
         color: #fbc02d; /* Dorado */
         text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para darle más profundidad */
         font-weight: bold;
         letter-spacing: 2px; /* Espaciado entre letras */
+        margin-bottom: 10px; /* Añadir un margen inferior */
     }
-    
 }
