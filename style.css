@@ -10,8 +10,6 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0; /* Eliminar margen */
-    padding: 0; /* Eliminar padding */
     background: linear-gradient(to right, #00c6ff, #0072ff); /* Azul Claro a Turquesa */
     background-size: cover; /* Asegura que el gradiente cubra toda la pantalla */
     background-color: #fff;
@@ -29,9 +27,8 @@ body, .game-container {
     max-width: 500px; /* Limitar el ancho máximo */
     min-width: 300px; /* Limitar el ancho mínimo */
     height: 100vh; /* Reducir la altura para dar espacio al botón de reiniciar */
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Centrar verticalmente */
+    max-height: 500px; /* Limitar la altura máxima */
+    min-height: 300px; /* Limitar la altura mínima */
     transition: background-color 0.3s ease; /* Transición suave para el cambio de color de fondo */
 }
 
@@ -109,8 +106,7 @@ h1 {
 
 /* Estilo para el botón de reiniciar */
 #restart-btn {
-    margin-left: 5px;
-    padding: 12px 12px; /* Relleno interior */
+    padding: 12px 30px; /* Relleno interior */
     font-size: 18px; /* Tamaño de fuente */
     cursor: pointer; /* Cambio de cursor */
     background-color: #2a19eb; /* Color de fondo */
@@ -163,7 +159,8 @@ h1 {
 /* Estilo para la flecha activa */
 .arrow.active {
     color: #20cf09; /* Rojo Tomate para la flecha activa (última pulsada) */
-    transform: scale(1.2); /* Aumentar el tamaño de la flecha activa */
+    transform: scale(1.2); /* Agrandar la flecha activa */
+    transition: transform 0.3s ease, color 0.3s ease; /* Transición suave para el cambio de tamaño y color */
 }
 
 @keyframes appear {
@@ -177,15 +174,6 @@ h1 {
 
 /* Ajustes responsivos para pantallas más pequeñas */
 @media (max-width: 500px) {
-    h1 {
-        font-size: 15vw; /* Tamaño de fuente relativo al ancho de la pantalla */
-        margin-bottom: 20px;
-        color: #fbc02d; /* Dorado */
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Sombra para darle más profundidad */
-        font-weight: bold;
-        letter-spacing: 2px; /* Espaciado entre letras */
-    }
-
     .game-container {
         width: 90vw; /* Reducir el tamaño del contenedor en pantallas pequeñas */
         height: 80vh; /* Ajustar la altura */
